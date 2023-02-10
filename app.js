@@ -138,12 +138,15 @@ app.post("/", function(req, res){
     if (listTitle === "Today") {
       newItem.save();
       res.redirect("/");
-    } List.findOne({name : listTitle}, function (err, foundList) {
-      console.log(foundList);
-      foundList.items.push(newItem);
-      foundList.save();
-      res.redirect("/" + listTitle); 
-    });
+    } 
+    else {
+      List.findOne({name : listTitle}, function (err, foundList) {
+        console.log(foundList);
+        foundList.items.push(newItem);
+        foundList.save();
+        res.redirect("/" + listTitle); 
+      });
+    }
 });
 
 let port = process.env.PORT;
